@@ -1,0 +1,77 @@
+{
+  "info": {
+    "name": "Flask Server",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "POST v1/me/feed",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "content",
+              "value": "Hello world",
+              "type": "text"
+            },
+            {
+              "key": "auth_token",
+              "value": "123456",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/me/feed",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "me",
+            "feed"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET v1/me/feed",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "auth_token",
+            "value": "{{auth_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/v1/me/feed",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "me",
+            "feed"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+
+  "variable": [
+    {
+      "key": "base_url",
+      "value": ""
+    },
+    {
+      "key": "auth_token",
+      "value": ""
+    }
+  ]
+}
