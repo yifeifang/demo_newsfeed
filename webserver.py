@@ -10,11 +10,11 @@ app = Flask(__name__)
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost', heartbeat=600,
                                        blocked_connection_timeout=300))
 channel = connection.channel()
-channel.queue_declare(queue='MyMQ')
+channel.queue_declare(queue='FanoutMQ')
 
 ######################################################## Handle post
-# A dictionary to store the feeds posted by the user
-feeds = redis.Redis(host='localhost', port=6379, db=0)
+# A dictionary to store the postDB posted by the user
+postDB = redis.Redis(host='localhost', port=6379, db=0)
 
 # A route to handle POST requests to v1/me/feed
 @app.route("/v1/me/feed", methods=["POST"])
@@ -22,17 +22,20 @@ def post_feed():
     # Get the content and user from the request body
     content = request.form.get("content")
     user = request.form.get("user")
-    post_uuid = uuid.uuid4()
+    post_uuid = uuid.uuid4().hex
     # Validate the user
     if not user in friendDB.get_users():
         return jsonify({"error": "User not exist"}), 401
 
-    # Store the content in the feeds dictionary with the user as the key
-    feeds.set(post_uuid, pickle.dumps((user, content)))
+    # Store the content in the postDB dictionary with the user as the key
+    postDB.set(post_uuid, pickle.dumps((user, content)))
 
     try:
         friends = friendDB.get_friends(user)
-
+        print(friends)
+        channel.basic_publish(exchange='',
+                        routing_key='FanoutMQ',
+                        body=pickle.dumps([post_uuid, friends]))
     except ValueError as e:
         # Handle any error from the friends module
         return jsonify({"error": str(e)}), 400
@@ -45,20 +48,32 @@ def post_feed():
 def get_feed():
     # Get the user from the request header
     user = request.headers.get("user")
-
     # Validate the user
     if not user in friendDB.get_users():
         return jsonify({"error": "User not exist"}), 401
 
-    # Get the content from the feeds dictionary with the user as the key
-    content = feeds.get(user).decode("utf-8")
+    feedcache = None
+    with open("feedcache", "rb") as f:
+        feedcache = pickle.load(f)
 
-    # If no content is found, return an error message
-    if not content:
-        return jsonify({"error": "No feed found"}), 404
+    if user in feedcache:
+        feedsdict = feedcache[user]
+    else:
+        return jsonify({"error": "No feed for the current user"}), 404
+    
+    # Get the content from the postDB dictionary with the user as the key
+    content_list = []
+    print(feedsdict)
+    for feed in feedsdict:
+        print(feed)
+        content = pickle.loads(postDB.get(feed))
+        # If no content is found, return an error message
+        if not content:
+            return jsonify({"error": "No feed found"}), 404
+        content_list.append(content)
 
     # Return the content as a json object
-    return jsonify({"content": content}), 200
+    return jsonify({"content": content_list}), 200
 
 ######################################################## Handle Friend ship
 
