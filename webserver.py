@@ -68,9 +68,9 @@ def get_feed():
     # Get the content from the postDB dictionary with the user as the key
     content_list = []
     print(feedsdict)
-    for feed in feedsdict:
-        print(feed)
-        content = pickle.loads(postDB.get(feed))
+    for feed_uuid in feedsdict:
+        print(feed_uuid)
+        content = pickle.loads(postDB.get(feed_uuid))
         # If no content is found, return an error message
         if not content:
             return jsonify({"error": "No feed found"}), 404

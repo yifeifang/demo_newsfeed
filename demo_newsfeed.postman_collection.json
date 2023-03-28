@@ -1,77 +1,165 @@
 {
-  "info": {
-    "name": "Flask Server",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "POST v1/me/feed",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "formdata",
-          "formdata": [
-            {
-              "key": "content",
-              "value": "Hello world",
-              "type": "text"
-            },
-            {
-              "key": "auth_token",
-              "value": "123456",
-              "type": "text"
-            }
-          ]
-        },
-        "url": {
-          "raw": "{{base_url}}/v1/me/feed",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "v1",
-            "me",
-            "feed"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "GET v1/me/feed",
-      "request": {
-        "method": "GET",
-        "header": [
-          {
-            "key": "auth_token",
-            "value": "{{auth_token}}"
-          }
-        ],
-        "url": {
-          "raw": "{{base_url}}/v1/me/feed",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "v1",
-            "me",
-            "feed"
-          ]
-        }
-      },
-      "response": []
-    }
-  ],
-
-  "variable": [
-    {
-      "key": "base_url",
-      "value": ""
-    },
-    {
-      "key": "auth_token",
-      "value": ""
-    }
-  ]
+	"info": {
+		"_postman_id": "e9db73e2-d104-4f1e-a392-2c82745d3ccd",
+		"name": "Flask Server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13334993"
+	},
+	"item": [
+		{
+			"name": "POST v1/me/feed",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "content",
+							"value": "Hello world",
+							"type": "text"
+						},
+						{
+							"key": "user",
+							"value": "{{current_user}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/v1/me/feed",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"me",
+						"feed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET v1/me/feed",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/v1/me/feed?user=alice",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"v1",
+						"me",
+						"feed"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "alice"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET create_user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/users/create?name=charle",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"create"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "charle"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET get_users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/users",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET get_friends",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/users/{{current_user}}/friends",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"{{current_user}}",
+						"friends"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET add_friend",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/users/{{current_user}}/friends/add?friend=cat",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"{{current_user}}",
+						"friends",
+						"add"
+					],
+					"query": [
+						{
+							"key": "friend",
+							"value": "cat"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": ""
+		},
+		{
+			"key": "auth_token",
+			"value": ""
+		}
+	]
 }

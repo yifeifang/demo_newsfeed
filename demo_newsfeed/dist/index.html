@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Demo_newsfeed</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<body onload="init()">
+<!-- <button onclick="test()">test</button> -->
+<div class="majordiv">
+  <div class="splitter">
+      <div class="layer1_cols">
+        <div id="chat" class="chat">
+        </div>
+        <div class="user_chat">
+        <form id="chat_form" class="chat_form">
+          <input type=text id="user_input" type="text" placeholder="Post starts here">
+        </form>
+        <button id="user_send" onclick="user_send()">Send</button>
+        <button id="reterive_feed" onclick="reterive_feed()">Refresh</button>
+        </div>
+      </div>
+      <div class="layer1_cols">
+        <div id="scorepan">
+          <h3 id="current_user">Current User: </h3>
+        </div> 
+        <div id="friend" class="card">
+        </div> 
+        <div class="user_chat">
+        <form id="chat_form" class="chat_form">
+          <input type=text id="user_id" type="text" placeholder="User ID">
+        </form>
+        <button id="user_send" onclick="add_friend()">Add friend</button>
+        <button id="reterive_feed" onclick="create_user()">Create user</button>
+        </div>
+      </div>
+  </div>
+</div>  
+  
+<!--visual  -->
+<div class="video-wrap">
+    <video id="video" playsinline autoplay hidden></video>
+</div>
+<canvas id="canvas" width="256" height="256" hidden></canvas>
+</body>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>

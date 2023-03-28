@@ -1,0 +1,145 @@
+.splitter {
+  display: flex;
+}
+
+.chat{
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  padding: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+  border-radius: 5px;
+  background-color: #fdf9ee;
+  overflow-y: scroll;
+}
+
+#scorepan{
+  width: 100%;
+  height: 60px;
+/*   text-align: center; */
+  padding: 0px 12px;
+  margin: 0px 0px 8px 0;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 0px none;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+  overflow: auto;
+  background-color: #965454;
+  color: white;
+}
+
+.card {
+  /* Add shadows to create the "card" effect */
+/*   margin: 16px 0px 16px 16px; */
+  background-color: #c1cbd7;
+  flex-direction: column;
+  height: 69vh;
+  padding: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px; /* 5px rounded corners */
+}
+
+.user_chat{
+  display: flex;
+}
+
+#chat_form{
+  flex: 80%;
+  margin: 0 8px 0 0;
+}
+
+#user_id{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 8px 8px 0;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 0px none;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+}
+
+#user_input{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 8px 8px 0;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 0px none;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+}
+
+#user_send{
+  flex: 20%;
+  padding: 12px 20px;
+  margin: 8px 8px 8px 0;
+  box-sizing: border-box;
+  background-color: #96a48b;
+  border-radius: 5px;
+  border: 0px none;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+}
+
+#reterive_feed{
+  flex: 20%;
+  padding: 12px 20px;
+  margin: 8px 0 8px 8px;
+  box-sizing: border-box;
+  background-color: #96a48b;
+  border-radius: 5px;
+  border: 0px none;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+}
+
+.layer1_cols {
+  flex: 50%;
+  heights: 100vh;
+  margin: 8px 8px 8px 8px;
+}
+
+.bubble_l{
+   display:inline-block;
+   position:relative;
+   padding: 10px;
+   background: #f8edb8;
+   border-radius: 5px;
+   margin-left:0px;
+   margin-right:auto;
+   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+   max-width: 50%;
+   overflow-wrap: anywhere;
+}
+
+.bubble_r{
+   display:inline-block;
+   position:relative;
+   padding: 10px;
+   background: #96a48b;
+   border-radius: 5px;
+   margin-left:auto;
+   margin-right:0px;
+   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+   max-width: 50%;
+   overflow-wrap: anywhere;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #939391;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #656565;
+}
