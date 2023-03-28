@@ -4,11 +4,13 @@ import redis
 import uuid
 import pickle
 import pika
+from flask_cors import CORS
 app = Flask(__name__)
+CORS(app)
 
 ####################################################### Handle rabbitMQ
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost', heartbeat=600,
-                                       blocked_connection_timeout=300))
+                                       blocked_connection_timeout=3000))
 channel = connection.channel()
 channel.queue_declare(queue='FanoutMQ')
 
@@ -23,6 +25,7 @@ def post_feed():
     content = request.form.get("content")
     user = request.form.get("user")
     post_uuid = uuid.uuid4().hex
+    print(user, content)
     # Validate the user
     if not user in friendDB.get_users():
         return jsonify({"error": "User not exist"}), 401
@@ -47,7 +50,7 @@ def post_feed():
 @app.route("/v1/me/feed", methods=["GET"])
 def get_feed():
     # Get the user from the request header
-    user = request.headers.get("user")
+    user = request.args.get("user")
     # Validate the user
     if not user in friendDB.get_users():
         return jsonify({"error": "User not exist"}), 401
@@ -56,6 +59,7 @@ def get_feed():
     with open("feedcache", "rb") as f:
         feedcache = pickle.load(f)
 
+    print(feedcache)
     if user in feedcache:
         feedsdict = feedcache[user]
     else:

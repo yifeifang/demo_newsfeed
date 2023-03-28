@@ -19,7 +19,7 @@ feedcache = {}
 
 # ########################################## Setting up Message queue call back
 def callback(ch, method, properties, body):
-    with open('feedcache', 'wb') as feedcache_file:
+    with open('feedcache', 'wb', buffering=0) as feedcache_file:
         message = pickle.loads(body)
         uuid = message[0]
         friends = message[1]
@@ -30,9 +30,9 @@ def callback(ch, method, properties, body):
             if friend not in feedcache:
                 feedcache[friend] = {}
             feedcache[friend][uuid] = feed_poster
-            pickle.dump(feedcache, feedcache_file)
-            print(feedcache)
-    
+            
+        print(feedcache)
+        pickle.dump(feedcache, feedcache_file)
 
 # Starting consuming MQ
 channel.basic_consume(queue='FanoutMQ',
